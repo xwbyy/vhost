@@ -1,0 +1,18 @@
+{
+  "id": "a174e9c9-5f02-4230-836c-33333b6573f4",
+  "name": "bot-wa",
+  "port": 3002,
+  "domain": "bot-wa.localhost",
+  "projectType": "bot",
+  "projectInfo": {
+    "name": "Node.js Bot/Script",
+    "description": "Bot atau script Node.js"
+  },
+  "source": "github",
+  "repoUrl": "https://github.com/VynaaValerie/Base.git",
+  "status": "stopped",
+  "createdAt": "2025-12-14T14:03:23.716Z",
+  "updatedAt": "2025-12-14T14:03:23.716Z",
+  "sourceDir": "/home/runner/workspace/hosting-core/sites/bot-wa/source",
+  "appDir": "/home/runner/workspace/hosting-core/sites/bot-wa"
+}

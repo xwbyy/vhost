@@ -1,0 +1,19 @@
+{
+  "id": "ca28938e-b1e9-4ecd-b591-3828d5afbfbb",
+  "name": "asu",
+  "port": 3003,
+  "domain": "asu.localhost",
+  "projectType": "bot",
+  "projectInfo": {
+    "name": "Node.js Bot/Script",
+    "description": "Bot atau script Node.js"
+  },
+  "source": "github",
+  "repoUrl": "https://github.com/VynaaValerie/Base.git",
+  "userId": "895bc162-a26a-454f-bd34-9a194decd383",
+  "status": "stopped",
+  "createdAt": "2025-12-14T16:04:31.578Z",
+  "updatedAt": "2025-12-14T16:04:31.578Z",
+  "sourceDir": "/home/runner/workspace/hosting-core/sites/asu/source",
+  "appDir": "/home/runner/workspace/hosting-core/sites/asu"
+}

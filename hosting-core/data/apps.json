@@ -1,0 +1,60 @@
+{
+  "apps": [
+    {
+      "id": "a174e9c9-5f02-4230-836c-33333b6573f4",
+      "name": "bot-wa",
+      "port": 3002,
+      "domain": "bot-wa.localhost",
+      "projectType": "bot",
+      "projectInfo": {
+        "name": "Node.js Bot/Script",
+        "description": "Bot atau script Node.js"
+      },
+      "source": "github",
+      "repoUrl": "https://github.com/VynaaValerie/Base.git",
+      "status": "stopped",
+      "createdAt": "2025-12-14T14:03:23.716Z",
+      "updatedAt": "2025-12-14T14:47:13.426Z",
+      "sourceDir": "/home/runner/workspace/hosting-core/sites/bot-wa/source",
+      "appDir": "/home/runner/workspace/hosting-core/sites/bot-wa"
+    },
+    {
+      "id": "9b9583a6-a4f3-467e-a4f5-0cc44d3d2029",
+      "name": "anu",
+      "port": 3001,
+      "domain": "anu.localhost",
+      "projectType": "bot",
+      "projectInfo": {
+        "name": "Node.js Bot/Script",
+        "description": "Bot atau script Node.js"
+      },
+      "source": "github",
+      "repoUrl": "https://github.com/VynaaValerie/Base.git",
+      "status": "stopped",
+      "createdAt": "2025-12-14T14:48:42.630Z",
+      "updatedAt": "2025-12-14T15:48:30.885Z",
+      "sourceDir": "/home/runner/workspace/hosting-core/sites/anu/source",
+      "appDir": "/home/runner/workspace/hosting-core/sites/anu"
+    },
+    {
+      "id": "ca28938e-b1e9-4ecd-b591-3828d5afbfbb",
+      "name": "asu",
+      "port": 3003,
+      "domain": "asu.localhost",
+      "projectType": "bot",
+      "projectInfo": {
+        "name": "Node.js Bot/Script",
+        "description": "Bot atau script Node.js"
+      },
+      "source": "github",
+      "repoUrl": "https://github.com/VynaaValerie/Base.git",
+      "userId": "895bc162-a26a-454f-bd34-9a194decd383",
+      "status": "running",
+      "createdAt": "2025-12-14T16:04:31.578Z",
+      "updatedAt": "2025-12-14T16:09:32.711Z",
+      "sourceDir": "/home/runner/workspace/hosting-core/sites/asu/source",
+      "appDir": "/home/runner/workspace/hosting-core/sites/asu",
+      "pid": 3241
+    }
+  ]
+}

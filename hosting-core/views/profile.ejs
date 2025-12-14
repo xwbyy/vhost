@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0d6efd">
+  <title>Profil - <%= appName %></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/"><i class="bi bi-cloud-arrow-up-fill me-2"></i><%= appName %></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link" href="/"><i class="bi bi-house-door me-1"></i>Beranda</a></li>
+          <li class="nav-item"><a class="nav-link" href="/deploy"><i class="bi bi-rocket-takeoff me-1"></i>Deploy</a></li>
+          <li class="nav-item"><a class="nav-link" href="/apps"><i class="bi bi-grid me-1"></i>Aplikasi</a></li>
+          <li class="nav-item"><a class="nav-link" href="/terminal"><i class="bi bi-terminal me-1"></i>Terminal</a></li>
+          <% if (typeof user !== 'undefined' && user && user.is_admin === 'true') { %>
+          <li class="nav-item"><a class="nav-link" href="/dbadmin"><i class="bi bi-gear me-1"></i>Admin</a></li>
+          <% } %>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item"><button class="btn btn-link nav-link" id="themeToggle"><i class="bi bi-moon-stars"></i></button></li>
+          <% if (typeof user !== 'undefined' && user) { %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+              <span class="badge <%= user.tier === 'vip' ? 'bg-warning text-dark' : 'bg-secondary' %> me-2"><%= user.tier === 'vip' ? 'VIP' : 'FREE' %></span>
+              <span class="d-none d-md-inline"><%= user.username %></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item active" href="/profile"><i class="bi bi-person me-2"></i>Profil</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>
+          </li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="container py-4">
+      <div class="row">
+        <div class="col-12 col-lg-4 mb-4">
+          <div class="card">
+            <div class="card-body text-center">
+              <div class="avatar-container mb-3">
+                <% if (user.avatar) { %>
+                <img src="<%= user.avatar %>" alt="Avatar" class="rounded-circle" width="100" height="100">
+                <% } else { %>
+                <div class="avatar-placeholder rounded-circle mx-auto d-flex align-items-center justify-content-center bg-primary text-white" style="width: 100px; height: 100px; font-size: 2.5rem;">
+                  <%= user.username.charAt(0).toUpperCase() %>
+                </div>
+                <% } %>
+              </div>
+              <h4><%= user.username %></h4>
+              <span class="badge <%= user.tier === 'vip' ? 'bg-warning text-dark' : 'bg-secondary' %> fs-6">
+                <%= user.tier === 'vip' ? 'VIP Member' : 'Free Member' %>
+              </span>
+              <% if (user.is_admin === 'true') { %>
+              <span class="badge bg-danger fs-6 ms-1">Admin</span>
+              <% } %>
+              <p class="text-muted mt-2 mb-0">
+                <i class="bi bi-calendar me-1"></i>
+                Bergabung: <%= new Date(user.created_at).toLocaleDateString('id-ID') %>
+              </p>
+            </div>
+          </div>
+
+          <div class="card mt-3">
+            <div class="card-header">
+              <h6 class="mb-0"><i class="bi bi-bar-chart me-2"></i>Statistik</h6>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Total Aplikasi</span>
+                <strong><%= stats.totalApps || 0 %> / <%= stats.maxApps || 3 %></strong>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Aplikasi Aktif</span>
+                <strong class="text-success"><%= stats.runningApps || 0 %></strong>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Storage</span>
+                <strong><%= stats.storageUsed || 0 %> / <%= stats.maxStorage || 100 %> MB</strong>
+              </li>
+            </ul>
+          </div>
+
+          <% if (user.tier === 'free') { %>
+          <div class="card mt-3 border-warning">
+            <div class="card-body text-center">
+              <h6 class="text-warning"><i class="bi bi-star-fill me-2"></i>Upgrade ke VIP</h6>
+              <p class="small text-muted mb-2">Dapatkan lebih banyak fitur!</p>
+              <ul class="list-unstyled small text-start">
+                <li><i class="bi bi-check-circle text-success me-1"></i>20 Aplikasi</li>
+                <li><i class="bi bi-check-circle text-success me-1"></i>1GB Storage</li>
+                <li><i class="bi bi-check-circle text-success me-1"></i>Custom Domain</li>
+                <li><i class="bi bi-check-circle text-success me-1"></i>Priority Support</li>
+              </ul>
+              <a href="#" class="btn btn-warning btn-sm">Hubungi Admin</a>
+            </div>
+          </div>
+          <% } %>
+        </div>
+
+        <div class="col-12 col-lg-8">
+          <div class="card">
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-info" type="button">
+                    <i class="bi bi-person me-1"></i>Profil
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="security-tab" data-bs-toggle="tab" data-bs-target="#security" type="button">
+                    <i class="bi bi-shield-lock me-1"></i>Keamanan
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="activity-tab" data-bs-toggle="tab" data-bs-target="#activity" type="button">
+                    <i class="bi bi-clock-history me-1"></i>Aktivitas
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <div class="tab-content">
+                <div class="tab-pane fade show active" id="profile-info" role="tabpanel">
+                  <% if (typeof message !== 'undefined' && message) { %>
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="bi bi-check-circle me-2"></i><%= message %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                  </div>
+                  <% } %>
+
+                  <form action="/profile/update" method="POST">
+                    <div class="mb-3">
+                      <label class="form-label">Username</label>
+                      <input type="text" class="form-control" value="<%= user.username %>" disabled>
+                      <small class="text-muted">Username tidak dapat diubah</small>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">Email</label>
+                      <input type="email" name="email" class="form-control" value="<%= user.email %>" required>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">Avatar URL</label>
+                      <input type="url" name="avatar" class="form-control" value="<%= user.avatar || '' %>" placeholder="https://example.com/avatar.jpg">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                      <i class="bi bi-save me-2"></i>Simpan Perubahan
+                    </button>
+                  </form>
+                </div>
+
+                <div class="tab-pane fade" id="security" role="tabpanel">
+                  <h5 class="mb-3">Ubah Password</h5>
+                  <form action="/profile/password" method="POST">
+                    <div class="mb-3">
+                      <label class="form-label">Password Lama</label>
+                      <input type="password" name="currentPassword" class="form-control" required autocomplete="current-password">
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">Password Baru</label>
+                      <input type="password" name="newPassword" class="form-control" required minlength="6" autocomplete="new-password">
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">Konfirmasi Password Baru</label>
+                      <input type="password" name="confirmPassword" class="form-control" required autocomplete="new-password">
+                    </div>
+
+                    <button type="submit" class="btn btn-warning">
+                      <i class="bi bi-key me-2"></i>Ubah Password
+                    </button>
+                  </form>
+
+                  <hr class="my-4">
+
+                  <h5 class="text-danger mb-3">Zona Bahaya</h5>
+                  <p class="text-muted">Hapus akun Anda dan semua data terkait.</p>
+                  <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                    <i class="bi bi-trash me-2"></i>Hapus Akun
+                  </button>
+                </div>
+
+                <div class="tab-pane fade" id="activity" role="tabpanel">
+                  <h5 class="mb-3">Aktivitas Terakhir</h5>
+                  <% if (typeof logs !== 'undefined' && logs.length > 0) { %>
+                  <div class="table-responsive">
+                    <table class="table table-sm">
+                      <thead>
+                        <tr>
+                          <th>Waktu</th>
+                          <th>Aktivitas</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% logs.slice(0, 10).forEach(function(log) { %>
+                        <tr>
+                          <td><small><%= new Date(log.created_at).toLocaleString('id-ID') %></small></td>
+                          <td><%= log.message %></td>
+                        </tr>
+                        <% }); %>
+                      </tbody>
+                    </table>
+                  </div>
+                  <% } else { %>
+                  <p class="text-muted">Belum ada aktivitas tercatat.</p>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">Hapus Akun</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>Apakah Anda yakin ingin menghapus akun? Tindakan ini tidak dapat dibatalkan.</p>
+          <p class="text-danger fw-bold">Semua aplikasi dan data Anda akan dihapus permanen.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <form action="/profile/delete" method="POST" style="display: inline;">
+            <button type="submit" class="btn btn-danger">Ya, Hapus Akun</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer mt-auto py-3 bg-light">
+    <div class="container text-center">
+      <span class="text-muted"><i class="bi bi-code-slash me-1"></i><%= appName %> v2.0.0</span>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
